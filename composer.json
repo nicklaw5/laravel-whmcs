@@ -1,0 +1,21 @@
+{
+    "name": "nicklaw5/laravel-whmcs",
+    "description": "A simple Laravel interface for interacting with the WHMCS API.",
+    "keywords": ["laravel", "whmcs", "api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nicholas Law"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WHMCS\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
