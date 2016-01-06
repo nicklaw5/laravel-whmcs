@@ -40,7 +40,7 @@ class WHMCSServiceProvider extends ServiceProvider {
 		});
 
 		$this->publishes([
-			dirname(__FILE__).'/../config/whmcs.php' => config_path('whmcs.php')
+			dirname(__FILE__).'/config/whmcs.php' => config_path('whmcs.php')
 		]);
 	}
 
