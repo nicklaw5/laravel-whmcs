@@ -33,10 +33,15 @@ class WHMCSServiceProvider extends ServiceProvider {
 		$this->app['whmcs'] = $this->app->share(function($app){
 			return new Whmcs;
 		});
-		$this->app->booting(function(){
+
+		$this->app->booting(function() {
 			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
 			$loader->alias('WHMCS', 'WHMCS\Facades\WHMCS');
 		});
+
+		$this->publishes([
+			dirname(__FILE__).'/../config/whmcs.php' => config_path('whmcs.php')
+		]);
 	}
 
 	/**
