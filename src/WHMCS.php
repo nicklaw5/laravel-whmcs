@@ -21,14 +21,17 @@ class WHMCS extends WhmcsCore {
      * @param int $limit
      * @return array
      */
-    public function getClients($start = 1, $limit = 25)
+    public function getClients($start = 0, $limit = 25, $search = null)
     {
         $params = [
             'action'        => 'getclients',
             'limitstart'    => $start,
-            'limitnum'      => $limit
+            'limitnum'      => $limit,
         ];
 
+        if($search)
+            $params['search'] = $search;
+        
         return $this->get($params);
     }
 
@@ -56,11 +59,13 @@ class WHMCS extends WhmcsCore {
      * @param string|int $clientId
      * @return array
      */
-    public function getClientDomains($client_id)
+    public function getClientDomains($client_id, $start = 0, $limit = 25)
     {
         $params = [
-            'action'    =>  'getclientsdomains',
-            'clientid'  =>  $client_id
+            'action'        =>  'getclientsdomains',
+            'clientid'      =>  $client_id,
+            'limitstart'    =>  $start,
+            'limitnum'      =>  $limit
         ];
 
         return $this->get($params);
@@ -74,13 +79,13 @@ class WHMCS extends WhmcsCore {
      * @param int $limit
      * @return array
      */
-    public function getClientProducts($client_id, $start = 1, $limit = 25)
+    public function getClientProducts($client_id, $start = 0, $limit = 25)
     {
         $params = [
             'action'        => 'getclientsproducts',
             'clientid'      => $client_id,
-            'limitstart'    => $start,
-            'limitnum'      => $limit
+            'limitstart'    =>  $start,
+            'limitnum'      =>  $limit
         ];
 
         return $this->get($params);
