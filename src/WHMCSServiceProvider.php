@@ -31,7 +31,7 @@ class WHMCSServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app['whmcs'] = $this->app->share(function($app){
-			return new Whmcs;
+			return new WHMCS;
 		});
 
 		$this->app->booting(function() {
