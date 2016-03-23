@@ -2,11 +2,15 @@
 A simple Laravel interface for interacting with the WHMCS API
 
 
-composer.json
+composer.json:
+
 "nicklaw5/laravel-whmcs": "dev-master"
 
 app.php
-Larapi\LarapiServiceProvider::class,
 
-command-line
+providers:
+WHMCS\WHMCSServiceProvider::class
+
+command-line:
+
 php artisan vendor:publish
