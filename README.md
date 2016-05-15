@@ -1,16 +1,66 @@
-# laravel-whmcs (WORK IN PROGRESS)
-A simple Laravel interface for interacting with the WHMCS API
+laravel-whmcs (WORK IN PROGRESS)
+======
+A simple Laravel interface for interacting with the WHMCS API.
 
 
-composer.json:
+# Installation
+To install the package, simply add the following to your Laravel installation's `composer.json` file:
 
-"nicklaw5/laravel-whmcs": "dev-master"
+```json
+"require": {
+	"laravel/framework": "5.*",
+	"nicklaw5/laravel-whmcs": "dev-master"
+},
+```
 
-app.php
+Run `composer update` to pull in the files.
 
-providers:
-WHMCS\WHMCSServiceProvider::class
+Then, add the following **Service Provider** to your `providers` array in your `config/app.php` file:
 
-command-line:
+```php
+'providers' => array(
+	...
+	WHMCS\WHMCSServiceProvider::class
+);
+```
 
-php artisan vendor:publish
+From the command-line run:
+`php artisan vendor:publish`
+
+# Configuration
+
+Open `config/whmcs.php` and configure the api endpoint and credentials:
+
+```php
+return [
+	// API URL
+	'url'		=>	'http://url.com/whmcs/includes/api.php',
+	
+	// API USERNAME
+	'username'	=>	'admin_user',
+
+	// API PASSWORD
+	'password'	=>	'password123',
+	
+	// API RESPONSE TYPE
+	'response_type'	=> 'json', // json or xml
+];
+```
+
+# Usage
+```php
+// app/Http/routes.php
+
+Route::get('/products/{client_id}', function() {
+    
+    $start = 0;
+    $limit = 25;
+    
+    $products = WHMCS::getClientProducts($client_id, $start, $limit);
+    
+    return json_encode($products);
+});
+```
+
+# WHMCS Docs
+[http://docs.whmcs.com/API](http://docs.whmcs.com/API)
