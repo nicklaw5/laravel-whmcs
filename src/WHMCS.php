@@ -23,16 +23,16 @@ class WHMCS extends WhmcsCore {
      */
     public function getClients($start = 0, $limit = 25, $search = null)
     {
-        $params = [
+        $data = [
             'action'        => 'getclients',
             'limitstart'    => $start,
             'limitnum'      => $limit,
         ];
 
         if($search)
-            $params['search'] = $search;
+            $data['search'] = $search;
         
-        return $this->get($params);
+        return $this->submitRequest($data);
     }
 
     /**
@@ -44,13 +44,13 @@ class WHMCS extends WhmcsCore {
      */
     public function getClientDetails($client_id, $stats = false)
     {
-        $params = [
+        $data = [
             'action'    =>  'getclientsdetails',
             'clientid'  =>  $client_id,
             'stats'     =>  $stats
         ];
 
-        return $this->get($params);
+        return $this->submitRequest($data);
     }
 
     /**
@@ -61,14 +61,14 @@ class WHMCS extends WhmcsCore {
      */
     public function getClientDomains($client_id, $start = 0, $limit = 25)
     {
-        $params = [
+        $data = [
             'action'        =>  'getclientsdomains',
             'clientid'      =>  $client_id,
             'limitstart'    =>  $start,
             'limitnum'      =>  $limit
         ];
 
-        return $this->get($params);
+        return $this->submitRequest($data);
     }
 
     /**
@@ -81,13 +81,26 @@ class WHMCS extends WhmcsCore {
      */
     public function getClientProducts($client_id, $start = 0, $limit = 25)
     {
-        $params = [
+        $data = [
             'action'        => 'getclientsproducts',
             'clientid'      => $client_id,
             'limitstart'    =>  $start,
             'limitnum'      =>  $limit
         ];
 
-        return $this->get($params);
+        return $this->submitRequest($data);
+    }
+
+    /**
+     * Creates a new client
+     * 
+     * @param array $data
+     * @return array
+     */
+    public function createClient($data)
+    {
+        $data['action'] = 'addclient';
+
+        return $this->submitRequest($data);
     }
 }

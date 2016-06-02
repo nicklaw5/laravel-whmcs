@@ -50,24 +50,20 @@ class WhmcsCore {
     }
 
     /**
-     * Respond to WHMCS get request
+     * Respond to a WHMCS request
      * 
      * @param type 
      * @return array
      */
-    public function get($params)
-    {   
-        // add the necessary params to the request
-        $params = $this->addNecessaryParams($params);
+    public function submitRequest($data)
+    {
+        $data = $this->addNecessaryParams($data);
+        $response = $this->client->request('POST', '', [
+            'query' => $data,
+            'http_errors' => false
+        ]);
 
-        // request the data from WHMCS
-        $response = $this->client->request('POST', '', ['query' => $params]);
-
-        // format response based on response_type
-        if($this->response_type === 'json')
-            return json_decode($response->getBody(), true);
-
-        return simplexml_load_string($response->getBody());
+        return $this->handleResponse($response);
     }
 
     /**
@@ -83,6 +79,20 @@ class WhmcsCore {
         $params['responsetype']     = $this->response_type;
 
         return $params;
+    }
+
+    /**
+     * Formats the response based on the set response_type
+     *
+     * @param array $response
+     * @return array
+     */
+    protected function handleResponse($response)
+    {
+        if($this->response_type === 'json')
+            return json_decode($response->getBody(), true);
+
+        return simplexml_load_string($response->getBody());
     }
 
 }
