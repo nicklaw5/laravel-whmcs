@@ -60,7 +60,8 @@ class WhmcsCore {
         $data = $this->addNecessaryParams($data);
         $response = $this->client->request('POST', '', [
             'query' => $data,
-            'http_errors' => false
+            'http_errors' => true,
+            'verify' => false
         ]);
 
         return $this->handleResponse($response);
