@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace WHMCS;
 
@@ -30,8 +30,8 @@ class WHMCSServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['whmcs'] = $this->app->share(function($app){
-			return new WHMCS;
+		$this->app->bind('whmcs', function($app) {
+		    return new WHMCS;
 		});
 
 		$this->app->booting(function() {
